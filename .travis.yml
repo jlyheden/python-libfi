@@ -1,0 +1,7 @@
+language: python
+python:
+  - "3.8"
+install:
+  - python setup.py -q install
+  - pip install nose2
+script: nose2
