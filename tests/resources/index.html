@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <title>Search</title>
+    <link href="/Publiceringsklient/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="/Publiceringsklient/Content/fi_css?v=mXaMUi0LZuKeeTyKUgN99i4RLMgFWlH2ZHqYfe91Gdg1" rel="stylesheet"/>
+
+    <link href="/Publiceringsklient/Content/bootstrap?v=YIKBow0YViOS6YMg1z4JgQNnTsEqTMut61PPjrXpkC41" rel="stylesheet"/>
+
+    
+    <link rel="stylesheet" href="/Publiceringsklient/Content/jquery-ui-smoothness-1.11.4.css" />
+    <link rel="Stylesheet" href="/Publiceringsklient/Content/themes/base/datepicker.css" />
+    <link rel="Stylesheet" href="/Publiceringsklient/Content/typeahead-special.css" />
+
+
+
+
+</head>
+<body>
+    <header>
+        <div class="iprbkgtop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 logo">
+                        <a href="http://www.fi.se/" data-toggle="tooltip" data-placement="bottom" title="Start page - Finansinspektionen">
+                            <img src='/Publiceringsklient/Content/images/Logo.gif' />
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <h1>Search PDMR transactions</h1>
+                    </div>
+                    <div class="col-md-2">
+                        <ul id="menu">
+                                <li><a href="/Publiceringsklient/sv-SE/Search/Search?SearchFunctionType=Insyn&amp;button=search&amp;Page=1">Svenska</a></li>
+                                <li><a href="/Publiceringsklient/en-GB/Search/Search?SearchFunctionType=Insyn&amp;button=search&amp;Page=1">English</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="iprbkgmain">
+        <div class="container">
+            
+
+<form action="/Publiceringsklient/en-GB/Search/Search" method="get">    <div class="panel panel-default zero-margin-bottom">
+        <div class="panel-heading zero-padding-right">
+            <h2>Search</h2>
+        </div>
+        <div class="panel-body zero-padding-right">
+            <div class="form-group">
+                <input type="hidden" name="SearchFunctionType" value="Insyn" />
+                <div class="row col-sm-12 zero-padding-right">
+                    <div class="col-sm-3 text-right">
+                        <label for="Utgivare">Issuer</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="Utgivare" name="Utgivare" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row col-sm-12 zero-padding-right">
+                    <div class="col-sm-3 text-right">
+                        <label for="PersonILedandeSt_llningNamn">Person discharging managerial responsibilities</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="PersonILedandeSt_llningNamn" name="PersonILedandeStällningNamn" type="text" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-12 zero-padding-right">
+                <div class="col-sm-3 text-right">
+                    <label for="Transaktionsdatum">Transaction date</label>
+                </div>
+                <div id="Transaktionsdatum">
+                    <div class="col-sm-3">
+                        <div class="input-group date">
+                            <input id="Transaktionsdatum.From" name="Transaktionsdatum.From" type="text" class="form-control datetimepicker"
+                                   autocomplete="off"
+                                   data-toggle="tooltip" title="Transaction date from"
+                                   value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group date">
+                            <input id="Transaktionsdatum.To" name="Transaktionsdatum.To" type="text" class="form-control datetimepicker"
+                                   autocomplete="off"
+                                   data-toggle="tooltip" title="Transaction date to"
+                                   value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-12 zero-padding-right">
+                <div class="col-sm-3 text-right">
+                    <label for="Publiceringsdatum">Publication date</label>
+                </div>
+                <div id="Publiceringsdatum">
+                    <div class="col-sm-3">
+                        <div class="input-group date">
+                            <input id="Publiceringsdatum.From" name="Publiceringsdatum.From" type="text" class="form-control datetimepicker"
+                                   autocomplete="off"
+                                   data-toggle="tooltip" title="Publishing date from"
+                                   value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group date">
+                            
+                            <input id="Publiceringsdatum.To" name="Publiceringsdatum.To" type="text" class="form-control datetimepicker"
+                                   autocomplete="off"
+                                   data-toggle="tooltip" title="Publishing date to"
+                                   value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-sm-1 text-left">
+                    <button name="button" value="search" class="btn">
+                        Search
+                    </button>
+                </div>
+                    <div data-toggle="tooltip" data-placement="right" title="S&#246;kresultatet inneh&#229;ller f&#246;r m&#229;nga tr&#228;ffar. Max: 1000">
+                        <button name="button" value="export" class="btn" disabled>
+                            Export
+                        </button>
+                    </div>
+            </div>
+            <input data-val="true" data-val-number="The field Page must be a number." data-val-required="The Page field is required." id="Page" name="Page" type="hidden" value="1" />
+             
+            </div>
+        </div>
+</form>
+    <div id="grid-list">
+        
+<script type="text/javascript">
+   
+
+</script>
+<div class="container zero-margin-right zero-padding-left zero-padding-right">
+   <input type="hidden" value="1" id="PageNumber" name="PageNumber" />
+    <div class="row zero-margin-right zero-margin-left">
+        <table class="table table-bordered table-hover table-striped zero-margin-top">
+            <thead>
+                <tr>
+                    <th>Publication date</th>
+                    <th>Issuer</th>
+                    <th>Person discharging managerial responsibilities</th>
+                    <th>Position</th>
+                    <th>Closely associated</th>
+                    <th>Nature of transaction</th>
+                    <th>Instrument name</th>
+                    <th>ISIN</th>
+                    <th>Transaction date</th>
+                    <th>Volume</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Currency</th>
+                    <th>Trading venue</th>
+                    <th>Status</th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>M.O.B.A. Network AB (publ)</td>
+                        <td>Maria Andersson Grimaldi</td>
+                        <td>Styrelseledamot/suppleant</td>
+                        <td></td>
+                        <td>Subscription</td>
+                        <td>MOBA TO 2020/2022</td>
+                        <td>SE0011751866</td>
+                        <td>14/03/2020</td>
+                        <td>10000</td>
+                        <td>Quantity</td>
+                        <td>10.92</td>
+                        <td>SEK</td>
+                        <td>Outside a trading venue</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G907-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Elos Medtech AB</td>
+                        <td>Mattias Andersson</td>
+                        <td>VD</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>Elos Medtech B</td>
+                        <td>SE0000120776</td>
+                        <td>13/03/2020</td>
+                        <td>500</td>
+                        <td>Quantity</td>
+                        <td>74.00</td>
+                        <td>SEK</td>
+                        <td>NASDAQ STOCKHOLM AB</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G906-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Monivent AB</td>
+                        <td>Karin Dahll&#246;f</td>
+                        <td>VD</td>
+                        <td>Yes</td>
+                        <td>Acquisition</td>
+                        <td>Monivent AK</td>
+                        <td>SE0013512282</td>
+                        <td>12/03/2020</td>
+                        <td>15471</td>
+                        <td>Quantity</td>
+                        <td>7.25</td>
+                        <td>SEK</td>
+                        <td>Outside a trading venue</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G905-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Monivent AB</td>
+                        <td>Karin Dahll&#246;f</td>
+                        <td>VD</td>
+                        <td>Yes</td>
+                        <td>Acquisition</td>
+                        <td>Monivent TO 1</td>
+                        <td>SE0013748878</td>
+                        <td>12/03/2020</td>
+                        <td>5157</td>
+                        <td>Quantity</td>
+                        <td>0.00</td>
+                        <td>SEK</td>
+                        <td>Outside a trading venue</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G905-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Monivent AB</td>
+                        <td>Karin Dahll&#246;f</td>
+                        <td>VD</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>Monivent AK</td>
+                        <td>SE0013512282</td>
+                        <td>12/03/2020</td>
+                        <td>15471</td>
+                        <td>Quantity</td>
+                        <td>7.25</td>
+                        <td>SEK</td>
+                        <td>Outside a trading venue</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G904-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Monivent AB</td>
+                        <td>Karin Dahll&#246;f</td>
+                        <td>VD</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>Monivent TO 1</td>
+                        <td>SE0013748878</td>
+                        <td>12/03/2020</td>
+                        <td>5157</td>
+                        <td>Quantity</td>
+                        <td>0.00</td>
+                        <td>SEK</td>
+                        <td>Outside a trading venue</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G904-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>SCA AB</td>
+                        <td>Christina Danielsson</td>
+                        <td>HR-direkt&#246;r</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>B SHRTSCA AB CBK</td>
+                        <td>DE000CN04ND3</td>
+                        <td>11/03/2020</td>
+                        <td>1500</td>
+                        <td>Quantity</td>
+                        <td>87.50</td>
+                        <td>SEK</td>
+                        <td>NASDAQ STOCKHOLM AB</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G903-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Genovis AB</td>
+                        <td>Susanne Ahlberg</td>
+                        <td>Bolagsjurist</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>GENO</td>
+                        <td>SE0002485979</td>
+                        <td>13/03/2020</td>
+                        <td>2000</td>
+                        <td>Quantity</td>
+                        <td>18.60</td>
+                        <td>SEK</td>
+                        <td>FIRST NORTH SWEDEN</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G902-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Genovis AB</td>
+                        <td>Susanne Ahlberg</td>
+                        <td>Bolagsjurist</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>GENO</td>
+                        <td>SE0002485979</td>
+                        <td>13/03/2020</td>
+                        <td>1000</td>
+                        <td>Quantity</td>
+                        <td>18.70</td>
+                        <td>SEK</td>
+                        <td>FIRST NORTH SWEDEN</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G902-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+                        <tr>
+                        <td>14/03/2020</td>
+                        <td>Wise Group AB</td>
+                        <td>Andreas Ferm</td>
+                        <td>Medlem i ledningsgrupp</td>
+                        <td></td>
+                        <td>Acquisition</td>
+                        <td>Wise Group AB</td>
+                        <td>SE0007277876</td>
+                        <td>09/03/2020</td>
+                        <td>500</td>
+                        <td>Quantity</td>
+                        <td>25.50</td>
+                        <td>SEK</td>
+                        <td>NASDAQ STOCKHOLM AB</td>
+                        <td></td>
+                        <td>
+                          
+                            
+                                                                                                                                            
+                            <a href="/Publiceringsklient/en-GB/Rapportsammanst%C3%A4llning/Index/A001G901-1?s%C3%B6kfunktion=Insyn">Details</a>
+
+                    </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pager">
+            <div class="pagination pagination-normal pagination-centered "><ul><li class="active previous"><span><i class="glyphicon glyphicon-chevron-left"></i> Previous</span></li><li class="active"><span>p1</span></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=2" title="Page 2.">p2</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=3" title="Page 3.">p3</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=4" title="Page 4.">p4</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=5" title="Page 5.">p5</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=6" title="Page 6.">p6</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=7" title="Page 7.">p7</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=8" title="Page 8.">p8</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=9" title="Page 9.">p9</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=10" title="Page 10.">p10</a></li><li class="disabled"><span>...</span></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=4966" title="Page 4966.">p4966</a></li><li><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=4967" title="Page 4967.">p4967</a></li><li class="next"><a data-ajax="true" data-ajax-begin="beginPaging" data-ajax-failure="failurePaging" data-ajax-loading="#loading" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-success="successPaging" data-ajax-update="#grid-list" href="/Publiceringsklient/en-GB/Search/Search/Insyn?button=search&amp;SearchFunctionType=Insyn&amp;paging=True&amp;page=2" title="Next page">Next <i class="glyphicon glyphicon-chevron-right"></i></a></li></ul></div>
+            <div class="well">
+                Showing <span class="badge badge-success">1
+                </span> to <span class="badge badge-success">10</span> of <span class="badge badge-info">49663</span>
+                result</div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+        </div>
+    </div>
+    <footer>
+        <div class="iprbkgbottom">
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row text padbottom12">
+                Finansinspektionen  |  Box 7821, 103 97 Stockholm  |  Brunnsgatan 3  |  Phone 08-408 980 00  |  
+                <a href=mailto:finansinspektionen@fi.se>
+                    finansinspektionen@fi.se
+                </a>
+            </div>
+        </div>
+        <div class="logo col-md-3">
+            <a href="http://www.fi.se/" title="Start page - Finansinspektionen">
+                <img src='/Publiceringsklient/Content/images/Logo.gif' alt="Start page - Finansinspektionen" />
+            </a>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+    </footer>
+    <script src="/Publiceringsklient/bundles/jquery?v=yuMp_AiknJx1CClwZg1H_FF6IUxqQeDHAjt3qZKPvCs1"></script>
+
+    <script src="/Publiceringsklient/bundles/jqueryval?v=xeePbbT2vC4pL1LKONgpwwYRtT6DJgMoJ9YgtVoYbXI1"></script>
+
+    <script src="/Publiceringsklient/bundles/jqueryui?v=nmuMA-O4C0zphhL2ApoyudBi4v4VCXr0cCFlFmBK2eU1"></script>
+
+    <script src="/Publiceringsklient/bundles/bootstrap?v="></script>
+
+    <script src="/Publiceringsklient/bundles/modernizr?v="></script>
+
+    <script type="text/javascript" src="/Publiceringsklient/Scripts/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="/Publiceringsklient/Scripts/datepicker-sv.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=text]').addClass('form-control');
+            $('select').addClass('form-control');
+            $(".datetimepicker").datepicker({ dateFormat: 'dd/mm/yy', });
+            $.datepicker.setDefaults($.datepicker.regional['en']);
+            $('input[type=button], input[type=submit]').addClass('btn');
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script type="text/javascript">
+        function beginPaging(args) {
+            // Animate
+            $('#grid-list').fadeOut('normal');
+        }
+
+        function successPaging() {
+            $('#grid-list').fadeIn('normal');
+            $('a').tooltip();
+            updateQueryStringParam('Page', $('#PageNumber').val());
+        }
+
+        var updateQueryStringParam = function (key, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
+
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
+            }
+            window.history.replaceState({}, "", baseUrl + params);
+        };
+
+        function failurePaging() {
+            alert("Could not retrieve list.");
+        }
+    </script>
+    
+    <script type="text/javascript">
+        function SkapaBloodhound(falt) {
+            return new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: 'https://marknadssok.fi.se/Publiceringsklient/en-GB/AutoComplete/H%C3%A4mtaAutoCompleteLista',
+                    prepare: function (query, settings) {
+
+                        var encodedQuery = encodeURI(query);
+
+                        return $.extend(settings, {
+                            type: "GET",
+                            contentType: "application/json; charset=UTF-8",
+                            data: { sokfunktion: 'Insyn', sokterm: encodedQuery, falt: falt }
+                        });
+                    }
+                }
+            });
+        }
+
+        var pilsDatasource = SkapaBloodhound('PersonILedandeStällningNamn');
+        var utgivareDatasource = SkapaBloodhound('Utgivare');
+    </script>
+    
+    <script type="text/javascript">
+        var applyTypeahead = function (selector, datasource, name, minLength) {
+            $(selector).typeahead({ hint: true, highlight: true, minLength: minLength },
+            {
+                name: name,
+                displayKey: function (item) {
+                    return item;
+                },
+                source: datasource,
+                limit: 10
+            });
+        };
+    </script>
+    <script type="text/javascript">
+        applyTypeahead("#Utgivare", utgivareDatasource, 'Utgivare', 2);
+        applyTypeahead("#PersonILedandeSt_llningNamn", pilsDatasource, 'PersonILedandeSt_llningNamn', 2);
+    </script>
+    <script type="text/javascript">
+        var initRangeDateTimePicker = function (fromId, toId) {
+            $(fromId).datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $(toId).datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $(toId).datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $(fromId).datepicker("option", "maxDate", selectedDate);
+                }
+            });
+        };
+    </script>
+    
+    <script type="text/javascript">
+        initRangeDateTimePicker("#Transaktionsdatum_From", "#Transaktionsdatum.To");
+        initRangeDateTimePicker("#Publiceringsdatum.From", "#Publiceringsdatum.To");
+    </script>
+
+</body>
+</html>
