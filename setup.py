@@ -12,8 +12,4 @@ setup(
         "backoff",
         "lxml"
     ],
-    tests_require=[
-        "vcrpy",
-        "nose2"
-    ]
     )
