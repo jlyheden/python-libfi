@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from decimal import Decimal
 from .domain import Transaction
 
 
@@ -20,6 +21,8 @@ class TransactionJSONDecoder(json.JSONDecoder):
     def __transaction_from_dict(dct):
         dct["publication_date"] = datetime.fromisoformat(dct["publication_date"]).date()
         dct["transaction_date"] = datetime.fromisoformat(dct["transaction_date"]).date()
+        dct["volume"] = Decimal(dct["volume"])
+        dct["price"] = Decimal(dct["price"])
         return Transaction(**dct)
 
 
@@ -36,9 +39,9 @@ class TransactionJSONEncoder(json.JSONEncoder):
                 "instrument_name": obj.instrument_name,
                 "isin": obj.isin,
                 "transaction_date": obj.transaction_date.isoformat(),
-                "volume": obj.volume,
+                "volume": str(obj.volume),
                 "unit": obj.unit,
-                "price": obj.price,
+                "price": str(obj.price),
                 "currency": obj.currency,
                 "trading_venue": obj.trading_venue,
                 "status": obj.status

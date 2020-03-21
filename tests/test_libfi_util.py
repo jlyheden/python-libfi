@@ -1,6 +1,7 @@
 import unittest
 import datetime
 import json
+from decimal import Decimal
 from libfi.util import TransactionJSONDecoder, TransactionJSONEncoder
 from libfi.domain import Transaction
 
@@ -18,9 +19,9 @@ class TestTransactionJSONEncoderDecoder(unittest.TestCase):
             instrument_name="some company",
             isin="1234",
             transaction_date=datetime.date(2020, 3, 9),
-            volume=10,
+            volume=Decimal("10"),
             unit=1,
-            price=10.23,
+            price=Decimal("10.23"),
             currency="SEK",
             trading_venue="stock market",
             status=""
@@ -41,9 +42,9 @@ class TestTransactionJSONEncoderDecoder(unittest.TestCase):
                 instrument_name="some company",
                 isin="1234",
                 transaction_date=datetime.date(2020, 3, 9),
-                volume=10,
+                volume=Decimal("10"),
                 unit=1,
-                price=10.23,
+                price=Decimal("10.23"),
                 currency="SEK",
                 trading_venue="stock market",
                 status=""
