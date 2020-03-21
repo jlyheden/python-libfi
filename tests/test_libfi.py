@@ -25,7 +25,7 @@ class TestClient(unittest.TestCase):
 
     @vcr.use_cassette(os.path.join(dir_path, 'resources/fixtures/vcr_cassettes/13_03_2020.yaml'))
     def test_get_all_transactions(self):
-        pd = datetime.strptime("13/03/2020", "%d/%m/%Y")
+        pd = datetime.strptime("13/03/2020", "%d/%m/%Y").date()
         result = self.client.get_all_transactions(pd)
         self.assertEqual(217, len(result))
 
@@ -37,14 +37,14 @@ class TestStatistics(unittest.TestCase):
 
     @vcr.use_cassette(os.path.join(dir_path, 'resources/fixtures/vcr_cassettes/13_03_2020.yaml'))
     def test_get_total_transactions_by_company(self):
-        pd = datetime.strptime("13/03/2020", "%d/%m/%Y")
+        pd = datetime.strptime("13/03/2020", "%d/%m/%Y").date()
         transactions = self.client.get_all_transactions(pd)
         stats = StatisticsHelper(transactions, ignore_venues=["Outside a trading venue"])
         stats.get_total_transactions_by_company()
 
     @vcr.use_cassette(os.path.join(dir_path, 'resources/fixtures/vcr_cassettes/13_03_2020.yaml'))
     def test_get_top_buyers_by_company(self):
-        pd = datetime.strptime("13/03/2020", "%d/%m/%Y")
+        pd = datetime.strptime("13/03/2020", "%d/%m/%Y").date()
         transactions = self.client.get_all_transactions(pd)
         stats = StatisticsHelper(transactions, ignore_venues=["Outside a trading venue"])
         r = stats.get_top_buyers_by_company(limit=5)
@@ -52,7 +52,7 @@ class TestStatistics(unittest.TestCase):
 
     @vcr.use_cassette(os.path.join(dir_path, 'resources/fixtures/vcr_cassettes/13_03_2020.yaml'))
     def test_get_top_buyers_by_company(self):
-        pd = datetime.strptime("13/03/2020", "%d/%m/%Y")
+        pd = datetime.strptime("13/03/2020", "%d/%m/%Y").date()
         transactions = self.client.get_all_transactions(pd)
         stats = StatisticsHelper(transactions, ignore_venues=["Outside a trading venue", "NORDIC SME"])
         r = stats.get_top_sellers_by_company(limit=5)

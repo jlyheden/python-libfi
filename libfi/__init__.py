@@ -2,8 +2,7 @@ import backoff
 from requests import get
 from requests.exceptions import RequestException
 from lxml import html
-from datetime import datetime
-from decimal import Decimal
+from .domain import Transaction
 
 
 def parse_page(content):
@@ -11,40 +10,8 @@ def parse_page(content):
     tree = html.fromstring(content)
     for t in tree.xpath('//tbody/tr'):
         columns = [x.text for x in t.findall('td')]
-        transactions.append(Transaction(columns))
+        transactions.append(Transaction.factory(columns))
     return transactions
-
-
-class Transaction(object):
-
-    def __init__(self, columns):
-        self.publication_date = datetime.strptime(columns[0], "%d/%m/%Y")
-        self.issuer = columns[1]
-        self.person = columns[2]
-        self.position = columns[3]
-        self.closely_associated = False if columns[4] is None else columns[4].lower() == "yes"
-        self.nature_of_transaction = columns[5]
-        self.instrument_name = columns[6]
-        self.isin = columns[7]
-        self.transaction_date = datetime.strptime(columns[8], "%d/%m/%Y")
-        self.volume = Decimal(columns[9])
-        self.unit = columns[10]
-        self.price = Decimal(columns[11])
-        self.currency = columns[12]
-        self.trading_venue = columns[13]
-        self.status = columns[14]
-
-    def __repr__(self):
-        return "<Transaction(publication_date={}, issuer={}, person={}, position={}, closely_associated={}, " \
-               "nature_of_transaction={}, instrument_name={}, isin={}, transaction_date={}, volume={}, unit={}, " \
-               "price={}, currency={}, trading_venue={}, status={})> ".format(self.publication_date, self.issuer,
-                                                                              self.person, self.position,
-                                                                              self.closely_associated,
-                                                                              self.nature_of_transaction,
-                                                                              self.instrument_name, self.isin,
-                                                                              self.transaction_date, self.volume,
-                                                                              self.unit, self.price, self.currency,
-                                                                              self.trading_venue, self.status)
 
 
 class Client(object):
