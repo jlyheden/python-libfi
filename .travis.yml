@@ -4,4 +4,4 @@ python:
 install:
   - python setup.py -q install
   - pip install nose2 vcrpy
-script: nose2
+script: nose2 -C --coverage libfi

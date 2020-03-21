@@ -4,3 +4,4 @@
 *.swp
 /.eggs
 *.egg-info
+.coverage

@@ -33,6 +33,26 @@ class Transaction(object):
                                                                               self.unit, self.price, self.currency,
                                                                               self.trading_venue, self.status)
 
+    def __eq__(self, other):
+        if not isinstance(other, Transaction):
+            return False
+        return \
+            self.publication_date == other.publication_date and \
+            self.issuer == other.issuer and \
+            self.person == other.person and \
+            self.position == other.position and \
+            self.closely_associated == other.closely_associated and \
+            self.nature_of_transaction == other.nature_of_transaction and \
+            self.instrument_name == other.instrument_name and \
+            self.isin == other.isin and \
+            self.transaction_date == other.transaction_date and \
+            self.volume == other.volume and \
+            self.unit == other.unit and \
+            self.price == other.price and \
+            self.currency == other.currency and \
+            self.trading_venue == other.trading_venue and \
+            self.status == other.status
+
     @classmethod
     def factory(cls, columns):
         return Transaction(

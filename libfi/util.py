@@ -12,12 +12,12 @@ class TransactionJSONDecoder(json.JSONDecoder):
         if isinstance(dct, list):
             transactions = []
             for item in dct:
-                transactions.append(self.__get_transaction(item))
+                transactions.append(self.__transaction_from_dict(item))
         else:
-            return self.__get_transaction(dct)
+            return self.__transaction_from_dict(dct)
 
     @staticmethod
-    def __get_transaction(dct):
+    def __transaction_from_dict(dct):
         dct["publication_date"] = datetime.fromisoformat(dct["publication_date"]).date()
         dct["transaction_date"] = datetime.fromisoformat(dct["transaction_date"]).date()
         return Transaction(**dct)
