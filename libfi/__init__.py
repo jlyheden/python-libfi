@@ -1,8 +1,13 @@
 import backoff
+import logging
 from requests import get
 from requests.exceptions import RequestException
 from lxml import html
 from .domain import Transaction
+from .util import random_delay
+
+LOGGER = logging.getLogger(__name__)
+LOGGER.addHandler(logging.NullHandler())
 
 
 def parse_page(content):
@@ -16,12 +21,33 @@ def parse_page(content):
 
 class Client(object):
 
-    def __init__(self):
+    def __init__(self, add_random_delay=False, random_delay_min=5, random_delay_max=10):
+        """
+        Initialises a libfi client
+
+        :param add_random_delay: introduces delays between individual calls to external service
+        :type add_random_delay: bool
+        :param random_delay_min: min number of seconds
+        :type random_delay_min: int
+        :param random_delay_max: max number of seconds
+        :type random_delay_max: int
+        """
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11"
         }
+        self.add_random_delay = add_random_delay
+        self.random_delay_min = random_delay_min
+        self.random_delay_max = random_delay_max
 
     def get_all_transactions(self, publication_date):
+        """
+        Fetches all transactions matching the publication_date
+
+        :param publication_date: matching publication_date
+        :type publication_date: datetime.date
+        :return: transactions
+        :rtype: list of Transaction
+        """
         t = []
         i = 1
         eol = False
@@ -29,6 +55,7 @@ class Client(object):
             transactions = parse_page(self.__get_page(i))
             for transaction in transactions:
                 if transaction.publication_date == publication_date:
+                    LOGGER.debug("Adding transaction to list: {}".format(transaction))
                     t.append(transaction)
                 elif transaction.publication_date > publication_date:
                     continue
@@ -38,10 +65,13 @@ class Client(object):
             i += 1
         return t
 
+    @random_delay
     @backoff.on_exception(backoff.expo, RequestException, max_tries=10)
     def __get_page(self, index):
-        req = get("https://marknadssok.fi.se/Publiceringsklient/en-GB/Search/Search?SearchFunctionType=Insyn&button"
-                  "=search&Page={}".format(index), headers=self.headers)
+        url = "https://marknadssok.fi.se/Publiceringsklient/en-GB/Search/Search?SearchFunctionType=Insyn&button" \
+              "=search&Page={}".format(index)
+        LOGGER.debug("Fetching from {}".format(url))
+        req = get(url, headers=self.headers)
         req.raise_for_status()
         return req.content
 

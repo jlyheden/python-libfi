@@ -1,9 +1,41 @@
 import unittest
 import datetime
 import json
+from unittest.mock import patch
 from decimal import Decimal
-from libfi.util import TransactionJSONDecoder, TransactionJSONEncoder
+from libfi.util import TransactionJSONDecoder, TransactionJSONEncoder, random_delay
 from libfi.domain import Transaction
+
+
+class FakeClient(object):
+
+    def __init__(self, add_random_delay, random_delay_min=5, random_delay_max=10):
+        self.add_random_delay = add_random_delay
+        self.random_delay_min = random_delay_min
+        self.random_delay_max = random_delay_max
+
+    @random_delay
+    def do_it(self, param):
+        return param
+
+
+class TestDecorator(unittest.TestCase):
+
+    @patch('time.sleep', return_value=None)
+    @patch('random.randint', return_value=7)
+    def test_random_relay(self, patched_random_randint, patched_time_sleep):
+        f = FakeClient(add_random_delay=True)
+        rv = f.do_it(True)
+        self.assertEqual(((7,),), patched_time_sleep.call_args)
+        self.assertTrue(patched_time_sleep.called)
+        self.assertTrue(rv)
+
+    @patch('time.sleep', return_value=None)
+    def test_random_relay_disabled(self, patched_time_sleep):
+        f = FakeClient(add_random_delay=False)
+        rv = f.do_it(True)
+        self.assertFalse(patched_time_sleep.called)
+        self.assertTrue(rv)
 
 
 class TestTransactionJSONEncoderDecoder(unittest.TestCase):

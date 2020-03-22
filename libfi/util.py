@@ -1,7 +1,33 @@
 import json
+import time
+import logging
+import random
 from datetime import datetime
 from decimal import Decimal
 from .domain import Transaction
+
+LOGGER = logging.getLogger(__name__)
+LOGGER.addHandler(logging.NullHandler())
+
+
+def random_delay(func):
+    """
+    If set in decorated object then wait between configured duration to perform action
+    Relies on add_random_delay, random_delay_min, random_delay_min to be set in self
+
+    :param func:
+    :return:
+    """
+    def _decorator(self, *args, **kwargs):
+        try:
+            if self.add_random_delay:
+                delay = random.randint(self.random_delay_min, self.random_delay_max)
+                LOGGER.info("Inserted random delay for {}s".format(delay))
+                time.sleep(delay)
+        except AttributeError as e:
+            LOGGER.exception("Failed to insert random_delay", e)
+        return func(self, *args, **kwargs)
+    return _decorator
 
 
 class TransactionJSONDecoder(json.JSONDecoder):
