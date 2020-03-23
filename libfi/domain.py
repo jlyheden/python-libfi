@@ -21,6 +21,12 @@ class Transaction(object):
         self.trading_venue = kwargs.get("trading_venue")
         self.status = kwargs.get("status")
 
+    def is_buying(self):
+        return self.nature_of_transaction == "Acquisition"
+
+    def is_selling(self):
+        return self.nature_of_transaction == "Disposal"
+
     def __repr__(self):
         return "<Transaction(publication_date={}, issuer={}, person={}, position={}, closely_associated={}, " \
                "nature_of_transaction={}, instrument_name={}, isin={}, transaction_date={}, volume={}, unit={}, " \
